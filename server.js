@@ -8,17 +8,11 @@ const port = process.env.PORT || 3000;
 
 async function getQuote(){
     try {
-        //const apikey = process.env.QUOTES_REST_API_KEY;
-        const response = await axios.get('https://api.quotable.io/quotes/random'//,{
-           // headers: {
-                //'Authorization': `Bearer ${apikey}`
-           // }
-        //}
-    );
+        const response = await axios.get('https://api.quotable.io/quotes/random');
         const data = response.data;
         const quoteText = data.content;
         const quoteAuthor = data.author;
-        return{ quoteText, quoteAuthor};
+        console.log({ quoteText, quoteAuthor});
     }catch(error) {
         console.error(error);
         return{ quoteText:'Error fetching quote', quoteAuthor: ""};
@@ -27,6 +21,7 @@ async function getQuote(){
 
 app.get('/api/quote', async (req, res) => {
     const quote = await getQuote();
+    console.log(quote)
     res.json(quote);
 });
 
