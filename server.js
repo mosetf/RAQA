@@ -13,7 +13,6 @@ async function getQuote(){
         const data = response.data;
         const quoteText = data.content;
         const quoteAuthor = data.author;
-        console.log({ quoteText, quoteAuthor});
     }catch(error) {
         console.error(error);
         return{ quoteText:'Error fetching quote', quoteAuthor: ""};
