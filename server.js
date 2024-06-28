@@ -22,7 +22,6 @@ async function getQuote(){
 
 app.get('/api/quote', async (req, res) => {
     const quote = await getQuote();
-    console.log(quote)
     res.json(quote);
 });
 
