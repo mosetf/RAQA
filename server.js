@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+c
 
 const app = express();
 
@@ -24,5 +25,7 @@ app.get('/api/quote', async (req, res) => {
     console.log(quote)
     res.json(quote);
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
