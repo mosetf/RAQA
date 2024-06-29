@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const quoteAuthor = document.getElementById('quote-author');
   const getQuoteBtn = document.getElementById('get-quote-btn');
   const loginForm = document.getElementById('login-form');
+  const toggleFormBtn = document.getElementById('toggle-form-btn');
   
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -45,6 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   getQuoteBtn.addEventListener('click', getQuote);
+});
+
+const toggleFormBtn = document.getElementById('toggle-form-btn');
+const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+
+toggleFormBtn.addEventListener('click', () => {
+  registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+  loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
 });
 
 
