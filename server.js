@@ -24,7 +24,7 @@ async function getQuote() {
         const data = response.data[0];
         return { quoteText: data.content, quoteAuthor: data.author };
     } catch (error) {
-        console.error(error);
+        console.error(error);xxxxxxxxxxx
         return { quoteText: 'Error fetching quote', quoteAuthor: "" };
     }
 }
