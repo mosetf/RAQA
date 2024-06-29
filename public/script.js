@@ -45,3 +45,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getQuoteBtn.addEventListener('click', getQuote);
 });
+
+const loginForm = document.getElementById('login-form');
+
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = {
+    email: loginForm.email.value,
+    password: loginForm.password.value,
+  };
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    // Handle login success or failure based on data
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred during login');
+  }
+});
