@@ -5,8 +5,12 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    flex-direction: column;
   }
   
+  .form-container { /* Wrap both forms in a container */
+    margin-bottom: 1rem; /* Add some spacing between forms */
+  }
   #quote-container {
     text-align: center;
     padding: 2rem;
