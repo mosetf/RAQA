@@ -1,7 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const registerForm = document.getElementById('register-form');
   const quoteText = document.getElementById('quote-text');
   const quoteAuthor = document.getElementById('quote-author');
   const getQuoteBtn = document.getElementById('get-quote-btn');
+
+  registerForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = {
+      username: registerForm.username.value,
+      email: registerForm.email.value,
+      password: registerForm.password.value,
+    };
+
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.text();
+      alert(data);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred during registration');
+    }
+  });
 
   async function getQuote() {
     try {
