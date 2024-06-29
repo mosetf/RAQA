@@ -6,12 +6,12 @@ const bcrypt = require('bcryptjs');
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
-  // Basic validation (replace with more comprehensive validation)
+  // Basic validation
   if (!username || !email || !password) {
     return res.status(400).send('Please fill in all fields');
   }
 
-  // Check for existing user (using your database interaction logic)
+  // Check for existing user
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create new user (using your database interaction logic)
+  // Create new user
   const newUser = new User({
     username,
     email,
