@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 router.use(express.json());
 
 router.post('/register', async (req, res) => {
-  console.log(req.body);
+  console.log('Received data:', req.body);
   const { username, email, password } = req.body;
 
   // Basic validation
