@@ -1,12 +1,26 @@
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const axios = require('axios');
 const path = require('path');
 const routes = require('./routes/routes');
 
 const app = express();
-
 const port = process.env.PORT || 3000;
+
+async function connectDB() {
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+        });
+        console.log('MongoDB connected');
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+        process.exit(1);
+    }
+}
 
 async function getQuote() {
     try {
@@ -27,4 +41,6 @@ app.get('/api/quote', async (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+connectDB().then(() => {
+    app.listen(port, () => console.log(`Server listening on port ${port}`));
+});
