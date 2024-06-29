@@ -36,7 +36,28 @@ router.post('/register', async (req, res) => {
   });
 
   router.post('/login', async (req, res) => {
-    // ... login logic here
+    const { email, password } = req.body;
+  
+    // 1. Find user by email
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(401).send('Invalid email or password');
+      }
+  
+      // 2. Compare password hashes
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).send('Invalid email or password');
+      }
+  
+      // 3. Login successful (optional: generate session token)
+      // ... logic for handling successful login
+  
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('Internal server error');
+    }
   });
 
   try {
