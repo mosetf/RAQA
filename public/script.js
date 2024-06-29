@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const quoteText = document.getElementById('quote-text');
   const quoteAuthor = document.getElementById('quote-author');
   const getQuoteBtn = document.getElementById('get-quote-btn');
-
+  const loginForm = document.getElementById('login-form');
+  
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -46,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   getQuoteBtn.addEventListener('click', getQuote);
 });
 
-const loginForm = document.getElementById('login-form');
 
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
