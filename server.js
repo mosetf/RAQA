@@ -8,6 +8,13 @@ const routes = require('./routes/routes');
 const app = express();
 const port = process.env.PORT || 3000;
 
+/**
+ * Connects to the MongoDB database.
+ * @async
+ * @function connectDB
+ * @throws {Error} If there is an error connecting to the database.
+ * @returns {Promise<void>} A promise that resolves when the database connection is successful.
+ */
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_URI);
