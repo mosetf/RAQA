@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /**
+   * Fetches a quote from the API and updates the quoteText and quoteAuthor elements.
+   * @returns {Promise<void>} A promise that resolves when the quote is fetched and the elements are updated.
+   */
   async function getQuote() {
     try {
       const response = await fetch('/api/quote');
