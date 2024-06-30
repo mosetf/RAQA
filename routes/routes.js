@@ -9,7 +9,6 @@ router.post('/register', async (req, res) => {
   console.log('Received data:', req.body);
   const { username, email, password } = req.body;
 
-  // Basic validation
   if (!username || !email || !password) {
     return res.status(400).send('Please fill in all fields');
   }
