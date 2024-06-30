@@ -50,8 +50,8 @@ router.post('/register', async (req, res) => {
       if (!isMatch) {
         return res.status(401).send('Invalid email or password');
       }
-  
-      // 3. Login successful (optional: generate session token)
+            // TO DO
+      // 3. Login successful (generate session token)
       // ... logic for handling successful login
   
     } catch (err) {
