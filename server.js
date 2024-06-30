@@ -18,6 +18,10 @@ async function connectDB() {
     }
 }
 
+/**
+ * Retrieves a random quote from the 'https://api.quotable.io/quotes/random' API.
+ * @returns {Promise<{quoteText: string, quoteAuthor: string}>} The quote text and author.
+ */
 async function getQuote() {
     try {
         const response = await axios.get('https://api.quotable.io/quotes/random');
