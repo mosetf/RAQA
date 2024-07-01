@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const { hashPassword, comparePassword } = require('../utils/passwordUtils');
 
 router.use(express.json());
 
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
   }
 
   // Hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await hashPassword(password);
 
   // Create new user
   const newUser = new User({
@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
     }
 
     // 2. Compare password hashes
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
       console.log('Password mismatch'); // Add this line for debugging
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
