@@ -48,26 +48,26 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Login attempt:', email); // Log login attempt
+  console.log('Login attempt with email:', email); // Log login attempt
   console.log('Login password:', password); // Log raw password on login attempt
 
   // 1. Find user by email
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User not found'); // Log if user not found
+      console.log('User not found for email:', email); // Log if user not found
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
     // Log the stored hashed password
-    console.log('Stored Hashed Password:', user.password);
+    console.log('Stored Hashed Password for user:', user.password);
 
     // 2. Compare password hashes
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('Password Match:', isMatch); // Log if passwords match
+    console.log('Password Match result for email:', email, 'is', isMatch); // Log if passwords match
 
     if (!isMatch) {
-      console.log('Password mismatch'); // Log if passwords do not match
+      console.log('Password mismatch for email:', email); // Log if passwords do not match
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
     res.status(200).json({ success: true, message: 'Login successful' });
 
   } catch (err) {
-    console.error(err);
+    console.error('Error during login attempt for email:', email, err);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
