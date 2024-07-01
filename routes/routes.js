@@ -46,26 +46,29 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log('Login attempt:', email); // Add this line for debugging
 
   // 1. Find user by email
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send('Invalid email or password');
+      console.log('User not found'); // Add this line for debugging
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
     // 2. Compare password hashes
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).send('Invalid email or password');
+      console.log('Password mismatch'); // Add this line for debugging
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
     // 3. Login successful (optional: generate session token)
-    res.status(200).send({ success: true, message: 'Login successful' });
+    res.status(200).json({ success: true, message: 'Login successful' });
 
   } catch (err) {
     console.error(err);
-    return res.status(500).send('Internal server error');
+    return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
