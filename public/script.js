@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const data = await response.json();
-        // Handle login success or failure based on data
+        console.log('Login response:', data); // Add this line for debugging
+
         if (data.success) {
           alert('Login successful');
           // Redirect to another page or update UI
