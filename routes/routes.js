@@ -27,6 +27,7 @@ router.post('/register', async (req, res) => {
 
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
+  console.log('Raw Password:', password); // Log raw password
   console.log('Hashed Password:', hashedPassword); // Log hashed password
 
   // Create new user
@@ -47,13 +48,14 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Login attempt:', email); // Add this line for debugging
+  console.log('Login attempt:', email); // Log login attempt
+  console.log('Login password:', password); // Log raw password on login attempt
 
   // 1. Find user by email
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User not found'); // Add this line for debugging
+      console.log('User not found'); // Log if user not found
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
@@ -65,11 +67,11 @@ router.post('/login', async (req, res) => {
     console.log('Password Match:', isMatch); // Log if passwords match
 
     if (!isMatch) {
-      console.log('Password mismatch'); // Add this line for debugging
+      console.log('Password mismatch'); // Log if passwords do not match
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
-    // 3. Login successful (optional: generate session token)
+    // 3. Login successful
     res.status(200).json({ success: true, message: 'Login successful' });
 
   } catch (err) {
