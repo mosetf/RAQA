@@ -52,11 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const data = await response.json();
-        console.log('Login response:', data); // Add this line for debugging
+        console.log('Login response:', data);
 
         if (data.success) {
           alert('Login successful');
-          // Redirect to another page or update UI
         } else {
           alert('Login failed');
         }
