@@ -9,12 +9,10 @@ router.post('/register', async (req, res) => {
   console.log('Received data:', req.body);
   const { username, email, password } = req.body;
 
-  // Basic validation
   if (!username || !email || !password) {
     return res.status(400).send('Please fill in all fields');
   }
 
-  // Check for existing user
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -25,12 +23,10 @@ router.post('/register', async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 
-  // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log('Raw Password:', password);
   console.log('Hashed Password:', hashedPassword);
 
-  // Create new user
   const newUser = new User({
     username,
     email,
@@ -51,7 +47,6 @@ router.post('/login', async (req, res) => {
   console.log('Login attempt with email:', email);
   console.log('Login password:', password);
 
-  // 1. Find user by email
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -59,10 +54,8 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
-    // Log the stored hashed password
     console.log('Stored Hashed Password for user:', user.password);
 
-    // 2. Compare password hashes
     const isMatch = await bcrypt.compare(password, user.password);
     console.log('Password Match result for email:', email, 'is', isMatch);
 
@@ -71,7 +64,6 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
-    // 3. Login successful
     res.status(200).json({ success: true, message: 'Login successful' });
 
   } catch (err) {
