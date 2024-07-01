@@ -27,8 +27,8 @@ router.post('/register', async (req, res) => {
 
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log('Raw Password:', password); // Log raw password
-  console.log('Hashed Password:', hashedPassword); // Log hashed password
+  console.log('Raw Password:', password);
+  console.log('Hashed Password:', hashedPassword);
 
   // Create new user
   const newUser = new User({
@@ -48,14 +48,14 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Login attempt with email:', email); // Log login attempt
-  console.log('Login password:', password); // Log raw password on login attempt
+  console.log('Login attempt with email:', email);
+  console.log('Login password:', password);
 
   // 1. Find user by email
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User not found for email:', email); // Log if user not found
+      console.log('User not found for email:', email);
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
@@ -64,10 +64,10 @@ router.post('/login', async (req, res) => {
 
     // 2. Compare password hashes
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('Password Match result for email:', email, 'is', isMatch); // Log if passwords match
+    console.log('Password Match result for email:', email, 'is', isMatch);
 
     if (!isMatch) {
-      console.log('Password mismatch for email:', email); // Log if passwords do not match
+      console.log('Password mismatch for email:', email);
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
