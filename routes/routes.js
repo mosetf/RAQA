@@ -65,11 +65,9 @@ router.post('/login', async (req, res) => {
     }
 
     res.status(200).json({ success: true, message: 'Login successful' });
-
   } catch (err) {
     console.error('Error during login attempt for email:', email, err);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
-
 module.exports = router;
