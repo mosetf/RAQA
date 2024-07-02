@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // Ensure native bcrypt is used
 
 router.use(express.json());
 
@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 
-  const hashedPassword = await bcrypt.hash(password, 8);
+  const hashedPassword = await bcrypt.hash(password, 7);
   console.log('Raw Password:', password);
   console.log('Hashed Password:', hashedPassword);
 
@@ -56,6 +56,7 @@ router.post('/login', async (req, res) => {
 
     console.log('Stored Hashed Password for user:', user.password);
 
+    // Compare plain password with stored hashed password using bcrypt
     const isMatch = await bcrypt.compare(password, user.password);
     console.log('Password Match result for email:', email, 'is', isMatch);
 
