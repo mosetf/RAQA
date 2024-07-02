@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 8);
   console.log('Raw Password:', password);
   console.log('Hashed Password:', hashedPassword);
 
