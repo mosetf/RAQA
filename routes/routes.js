@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
 
     // Hash the login attempt password for logging purposes
     const hashedLoginPassword = await bcrypt.hash(password, 10);
-    console.log('Hashed Login Password:', hashedLoginPassword);
+    console.log('Hashed Login Password (for logging):', hashedLoginPassword);
 
     const isMatch = await bcrypt.compare(password, user.password);
     console.log('Password Match result for email:', email, 'is', isMatch);
@@ -74,4 +74,5 @@ router.post('/login', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
 module.exports = router;
