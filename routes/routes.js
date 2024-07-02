@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 router.use(express.json());
 
@@ -55,10 +55,6 @@ router.post('/login', async (req, res) => {
     }
 
     console.log('Stored Hashed Password for user:', user.password);
-
-    // Hash the login attempt password for logging purposes
-    const hashedLoginPassword = await bcrypt.hash(password, 10);
-    console.log('Hashed Login Password (for logging):', hashedLoginPassword);
 
     const isMatch = await bcrypt.compare(password, user.password);
     console.log('Password Match result for email:', email, 'is', isMatch);
