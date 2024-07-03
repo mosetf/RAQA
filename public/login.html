@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Login - Quote Generator</title>
   <link rel="stylesheet" href="static/style.css">
   <style>
     body {
@@ -48,7 +48,23 @@
       border-radius: 5px;
       background: #2a2a2a;
       color: #E1E1E1;
-      width: 100%; /* Consistent width */
+      width: 100%;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      width: calc(100% - 30px);
+    }
+
+    .password-wrapper .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 35px;
+      cursor: pointer;
+      color: #B3B3B3;
     }
 
     .auth-button {
@@ -84,15 +100,22 @@
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required>
         </div>
-        <div class="form-group">
+        <div class="form-group password-wrapper">
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
+          <span class="toggle-password" onclick="togglePassword('password')">&#128065;</span>
         </div>
         <button type="submit" class="auth-button">Login</button>
       </form>
       <p>Don't have an account? <a href="index.html">Register here</a></p>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script>
+    function togglePassword(id) {
+      const passwordInput = document.getElementById(id);
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+    }
+  </script>
 </body>
 </html>
