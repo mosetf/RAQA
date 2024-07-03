@@ -44,7 +44,7 @@ body {
 
 .auth-button {
   padding: 10px;
-  background-color: #6a0dad; /* Light purple for contrast and appeal */
+  background-color: #7e6dd7; /* Light purple for contrast and appeal */
   border: none;
   border-radius: 5px;
   color: white;
@@ -53,7 +53,7 @@ body {
 }
 
 .auth-button:hover {
-  background-color: #7a1dca; /* Slightly lighter on hover for interaction feedback */
+  background-color: #6c61cc; /* Slightly lighter on hover for interaction feedback */
 }
 
 .social-login {
@@ -89,7 +89,7 @@ body {
 }
 
 a {
-  color: #9c4dcc; /* Light purple for links */
+  color: #7e6dd7; /* Light purple for links */
 }
 
 a:hover {
