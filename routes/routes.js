@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       console.log('User not found for email:', email);
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      return res.status(401).json({ success: false, message: 'Invalid email' }); // Changed message
     }
 
     console.log('Stored Hashed Password for user:', user.password);
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 
     if (!isMatch) {
       console.log('Password mismatch for email:', email);
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      return res.status(401).json({ success: false, message: 'Incorrect password' }); // Changed message
     }
 
     res.status(200).json({ success: true, message: 'Login successful' });
