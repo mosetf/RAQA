@@ -5,6 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="static/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #121212;
+      color: #E1E1E1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .auth-container {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-form label {
+      margin-bottom: 5px;
+      color: #B3B3B3;
+    }
+
+    .auth-form input {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      background: #2a2a2a;
+      color: #E1E1E1;
+      width: 100%; /* Consistent width */
+    }
+
+    .auth-button {
+      padding: 10px;
+      background-color: #7e6dd7;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .auth-button:hover {
+      background-color: #6c61cc;
+    }
+
+    a {
+      color: #7e6dd7;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #b85ee0;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
