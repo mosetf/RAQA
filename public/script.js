@@ -57,7 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.success) {
           alert('Login successful');
         } else {
-          alert('Login failed');
+          // Check for specific error message indicating wrong password
+          if (data.message === 'Incorrect password') {
+            alert('Incorrect password. Please try again.');
+          } else {
+            alert('Login failed');
+          }
         }
       } catch (error) {
         console.error('Error:', error);
