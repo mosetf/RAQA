@@ -9,13 +9,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'; // Use a secure 
 
 router.use(express.json());
 
-// Add email configuration for nodemailer
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
+let transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587, // Common port for SMTP
+  secure: false, // True for 465, false for other ports
   auth: {
-    user: process.env.EMAIL, // Replace with your email
-    pass: process.env.EMAIL_PASSWORD, // Replace with your email password
-  },
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
 // Registration Route
