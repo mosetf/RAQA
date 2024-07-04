@@ -95,12 +95,17 @@ router.post('/forgot_password', async (req, res) => {
       from: 'no-reply@quotegenerator.com',
       subject: 'Password Reset',
       html: `<p>You requested a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
+    }, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+        return res.status(500).send('Failed to send password reset email');
+      } else {
+        console.log('Email sent:', info.response);
+        res.send('Password reset link sent to your email');
+      }
     });
-
-    console.log('Password reset link sent to email:', email);
-    res.send('Password reset link sent to your email');
   } catch (err) {
-    console.error('Error during password reset request for email:', email, err);
+    console.error('Error during password reset for email:', email, err);
     res.status(500).send('Internal server error');
   }
 });
