@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const response = await fetch('/api/login', { // Correct the URL if needed
+        const response = await fetch('/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = { email: forgotPasswordForm.email.value };
 
       try {
-        const response = await fetch('/api/forgot_password', { // Correct the URL if needed
+        const response = await fetch('/api/forgot_password', { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const response = await fetch('/api/reset_password', { // Correct the URL if needed
+        const response = await fetch('/api/reset_password', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
