@@ -79,22 +79,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (forgotPasswordForm) {
-    forgotPasswordForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const formData = { email: forgotPasswordForm.email.value };
+    forgotPasswordForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
 
-      try {
-        const response = await fetch('/api/forgot_password', { 
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        const data = await handleResponse(response);
-        alert(data);
-      } catch (error) {
+      const email = document.getElementById('email').value;
+      const data = { email };
+
+      fetch('/forgot_password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        // Handle success (e.g., display a success message)
+      })
+      .catch((error) => {
         console.error('Error:', error);
-        alert('An error occurred while requesting password reset');
-      }
+        // Handle errors (e.g., display an error message)
+      });
     });
   }
 
