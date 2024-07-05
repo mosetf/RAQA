@@ -16,8 +16,17 @@ const port = process.env.PORT || 3000;
  * @returns {Promise<void>} A promise that resolves when the database connection is successful.
  */
 async function connectDB() {
+    const dbUri = process.env.MONGO_URI;
+    if (!dbUri) {
+        console.error('MongoDB connection error: MONGO_URI is not defined in .env');
+        process.exit(1);
+    }
+
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(dbUri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         console.log('MongoDB connected');
     } catch (error) {
         console.error('MongoDB connection error:', error);
