@@ -4,7 +4,14 @@
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm" # For npm packages
+    directory: "/" # Location of package.json
     schedule:
-      interval: "weekly"
+      interval: "daily" # Check for updates daily
+
+  - package-ecosystem: "github-actions" # For GitHub Actions
+    directory: "/" # Location of GitHub Actions workflows
+    schedule:
+      interval: "daily" # Check for updates daily
+
+  # Add other package ecosystems as needed
