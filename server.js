@@ -17,7 +17,10 @@ const port = process.env.PORT || 3000;
  */
 async function connectDB() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         console.log('MongoDB connected');
     } catch (error) {
         console.error('MongoDB connection error:', error);
@@ -35,7 +38,7 @@ async function getQuote() {
         const data = response.data[0];
         return { quoteText: data.content, quoteAuthor: data.author };
     } catch (error) {
-        console.error(error);xxxxxxxxxxx
+        console.error(error);
         return { quoteText: 'Error fetching quote', quoteAuthor: "" };
     }
 }
