@@ -10,13 +10,6 @@ const routes = require('./routes/routes');
 const app = express();
 const port = process.env.PORT || 3000;
 
-/**
- * Connects to the MongoDB database.
- * @async
- * @function connectDB
- * @throws {Error} If there is an error connecting to the database.
- * @returns {Promise<void>} A promise that resolves when the database connection is successful.
- */
 async function connectDB() {
     const dbUri = process.env.MONGO_URI;
     if (!dbUri) {
@@ -33,10 +26,6 @@ async function connectDB() {
     }
 }
 
-/**
- * Retrieves a random quote from the 'https://api.quotable.io/quotes/random' API.
- * @returns {Promise<{quoteText: string, quoteAuthor: string}>} The quote text and author.
- */
 async function getQuote() {
     try {
         const response = await axios.get('https://api.quotable.io/quotes/random');
