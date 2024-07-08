@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('email').value;
       const data = { email };
 
-      fetch('/forgot_password', {
+      fetch('/api/forgot_password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
