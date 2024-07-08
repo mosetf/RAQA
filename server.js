@@ -4,12 +4,20 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const path = require('path');
 const session = require('express-session');
-const passport = require('./config/passport');
+const MongoStore = require('connect-mongo');
 const routes = require('./routes/routes');
+const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+/**
+ * Connects to the MongoDB database.
+ * @async
+ * @function connectDB
+ * @throws {Error} If there is an error connecting to the database.
+ * @returns {Promise<void>} A promise that resolves when the database connection is successful.
+ */
 async function connectDB() {
     const dbUri = process.env.MONGO_URI;
     if (!dbUri) {
@@ -26,6 +34,10 @@ async function connectDB() {
     }
 }
 
+/**
+ * Retrieves a random quote from the 'https://api.quotable.io/quotes/random' API.
+ * @returns {Promise<{quoteText: string, quoteAuthor: string}>} The quote text and author.
+ */
 async function getQuote() {
     try {
         const response = await axios.get('https://api.quotable.io/quotes/random');
@@ -37,24 +49,23 @@ async function getQuote() {
     }
 }
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use(session({
-    secret: 'your_session_secret',
-    resave: false,
-    saveUninitialized: false,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.get('/api/quote', async (req, res) => {
     const quote = await getQuote();
     res.json(quote);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your_secret_key',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/api', routes);
 
 connectDB().then(() => {
