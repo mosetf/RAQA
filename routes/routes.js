@@ -3,25 +3,14 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const User = require('../models/User');
 const passport = require('passport');
+const { sendPasswordResetEmail } = require('../utils/mailer');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 router.use(express.json());
 
-let transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
-
-// Registration Route
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -45,7 +34,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login Route using Passport
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -64,7 +52,6 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// Forgot Password Route
 router.post('/forgot_password', async (req, res) => {
   const { email } = req.body;
 
@@ -77,24 +64,14 @@ router.post('/forgot_password', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
     const resetLink = `http://localhost:3000/reset_password.html?token=${token}`;
 
-    await transporter.sendMail({
-      to: user.email,
-      from: 'no-reply@quotegenerator.com',
-      subject: 'Password Reset',
-      html: `<p>You requested a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
-    }, (error, info) => {
-      if (error) {
-        return res.status(500).send('Failed to send password reset email');
-      } else {
-        res.send('Password reset link sent to your email');
-      }
-    });
+    await sendPasswordResetEmail(user.email, resetLink);
+
+    res.send('Password reset link sent to your email');
   } catch (err) {
     res.status(500).send('Internal server error');
   }
 });
 
-// Reset Password Route
 router.post('/reset_password', async (req, res) => {
   const { password, confirmPassword, token } = req.body;
 
