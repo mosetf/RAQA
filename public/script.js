@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   async function handleResponse(response) {
     if (!response.ok) {
+      let errorData;
       try {
-        const errorData = await response.json();
+        errorData = await response.json();
+        console.error('Error Data:', errorData); // Log the error data for debugging
         throw new Error(errorData.message || 'An error occurred');
       } catch (parseError) {
-        throw new Error('An error occurred');
+        console.error('Parse Error:', parseError); // Log the parse error for debugging
+        // This could be a network error, or the response is not JSON
+        throw new Error(errorData?.message || 'An error occurred while parsing the response');
       }
     }
     return response.json();
