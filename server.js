@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const path = require('path');
+const session = require('express-session');
+const passport = require('./config/passport');
 const routes = require('./routes/routes');
 
 const app = express();
@@ -45,6 +47,18 @@ async function getQuote() {
         return { quoteText: 'Error fetching quote', quoteAuthor: "" };
     }
 }
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(session({
+    secret: 'your_session_secret',
+    resave: false,
+    saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/api/quote', async (req, res) => {
     const quote = await getQuote();
