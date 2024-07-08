@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -10,9 +11,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'; // Use a secure 
 router.use(express.json());
 
 let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587, // Common port for SMTP
-  secure: false, // True for 465, false for other ports
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
