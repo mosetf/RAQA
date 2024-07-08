@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   async function handleResponse(response) {
     if (!response.ok) {
-      // Attempt to parse error details from the response body
       try {
         const errorData = await response.json();
         throw new Error(errorData.message || 'An error occurred');
       } catch (parseError) {
-        // If parsing fails, throw a generic error
         throw new Error('An error occurred');
       }
     }
-    return response.json(); // Parse and return the body for successful responses
+    return response.json();
   }
 
   const registerForm = document.getElementById('register-form');
@@ -63,12 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const data = await handleResponse(response);
-        // Assuming the server sends back a success flag and message in data
         if (data.success) {
           alert(data.message || 'Login successful');
           loginForm.reset();
         } else {
-          // If the server indicates failure but doesn't throw an error
           alert(data.message || 'Login failed');
         }
       } catch (error) {
@@ -80,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (forgotPasswordForm) {
     forgotPasswordForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent default form submission
+      event.preventDefault();
 
       const email = document.getElementById('email').value;
       const data = { email };
@@ -95,11 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
-        // Handle success (e.g., display a success message)
       })
       .catch((error) => {
         console.error('Error:', error);
-        // Handle errors (e.g., display an error message)
       });
     });
   }
@@ -122,11 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(formData),
         });
         const data = await handleResponse(response);
-        alert(data);
-        registerForm.reset();
+        alert(data.message || 'Password has been reset successfully');
+        resetPasswordForm.reset();
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred while requesting password reset');
+        alert('An error occurred while resetting the password');
       }
     });
   }
