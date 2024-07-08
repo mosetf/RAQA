@@ -3,13 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!response.ok) {
       let errorData;
       try {
+        // Check if the response is JSON
+        const contentType = response.headers.get('Content-Type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Received non-JSON response');
+        }
+
         errorData = await response.json();
         console.error('Error Data:', errorData); // Log the error data for debugging
         throw new Error(errorData.message || 'An error occurred');
       } catch (parseError) {
         console.error('Parse Error:', parseError); // Log the parse error for debugging
         // This could be a network error, or the response is not JSON
-        throw new Error(errorData?.message || 'An error occurred while parsing the response');
+        throw new Error(errorData?.message || parseError.message || 'An error occurred while parsing the response');
       }
     }
     return response.json();
