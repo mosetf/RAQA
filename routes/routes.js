@@ -11,7 +11,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 router.use(express.json());
 
-router.post('/register', async (req, res) => {
+router.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/api/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -52,7 +52,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/forgot_password', async (req, res) => {
+router.post('/api/forgot_password', async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -72,7 +72,7 @@ router.post('/forgot_password', async (req, res) => {
   }
 });
 
-router.post('/reset_password', async (req, res) => {
+router.post('/api/reset_password', async (req, res) => {
   const { password, confirmPassword, token } = req.body;
 
   if (password !== confirmPassword) {
