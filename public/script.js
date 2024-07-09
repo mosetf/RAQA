@@ -1,20 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
   async function handleResponse(response) {
     if (!response.ok) {
+      if (response.status === 500) {
+        console.error('Server error (500): The server encountered an internal error.');
+      }
       let errorData;
       try {
-        // Check if the response is JSON
         const contentType = response.headers.get('Content-Type');
         if (!contentType || !contentType.includes('application/json')) {
           throw new Error('Received non-JSON response');
         }
-
+  
         errorData = await response.json();
-        console.error('Error Data:', errorData); // Log the error data for debugging
+        console.error('Error Data:', errorData);
         throw new Error(errorData.message || 'An error occurred');
       } catch (parseError) {
-        console.error('Parse Error:', parseError); // Log the parse error for debugging
-        // This could be a network error, or the response is not JSON
+        console.error('Parse Error:', parseError);
         throw new Error(errorData?.message || parseError.message || 'An error occurred while parsing the response');
       }
     }
