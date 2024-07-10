@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Handles the response from an HTTP request.
+ * @param {Response} response - The response object from the HTTP request.
+ * @returns {Promise<any>} - A promise that resolves to the parsed JSON response.
+ * @throws {Error} - If the response is not OK or if there is an error parsing the response.
+ */
   async function handleResponse(response) {
     if (!response.ok) {
         if (response.status === 500) {
