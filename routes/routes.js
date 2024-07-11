@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const passport = require('../config/passport');
-const authRoutes = require('./authentication/authRoutes');
+const authRoutes = require('../controllers/authentication/authRoutes');
 const regRoutes = require('./registration/regRoutes');
 const { sendPasswordResetEmail } = require('../utils/mailer');
 const jwt = require('jsonwebtoken');
