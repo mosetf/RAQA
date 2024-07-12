@@ -3,124 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Quote Generator</title>
-  <link rel="stylesheet" href="static/style.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #121212;
-      color: #E1E1E1;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .auth-container {
-      background: #1a1a1a;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .auth-form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .auth-form label {
-      margin-bottom: 5px;
-      color: #B3B3B3;
-    }
-
-    .auth-form input {
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #333;
-      border-radius: 5px;
-      background: #2a2a2a;
-      color: #E1E1E1;
-      width: 100%;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    .password-wrapper input {
-      width: calc(100% - 30px);
-    }
-
-    .password-wrapper .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 35px;
-      cursor: pointer;
-      color: #B3B3B3;
-    }
-
-    .auth-button {
-      padding: 10px;
-      background-color: #7e6dd7;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .auth-button:hover {
-      background-color: #6c61cc;
-    }
-
-    a {
-      color: #7e6dd7;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #b85ee0;
-    }
-  </style>
+  <title>My Website</title>
+  <link rel="stylesheet" href="./static/style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="auth-container">
-      <h2>Register for Quote Generator</h2>
-      <form id="register-form" class="auth-form">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
+  <br>
+  <br>
+  <div class="cont">
+    <div class="form sign-in">
+      <h2>Welcome</h2>
+      <label>
+        <span>Email</span>
+        <input type="email" id="sign-in-email" />
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" id="sign-in-password" />
+      </label>
+      <p class="forgot-pass">Forgot password?</p>
+      <button type="button" class="submit" id="sign-in-submit">Sign In</button>
+    </div>
+    <div class="sub-cont">
+      <div class="img">
+        <div class="img__text m--up">
+          <h3>Don't have an account? Please Sign up!</h3>
         </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
+        <div class="img__text m--in">
+          <h3>If you already have an account, just sign in.</h3>
         </div>
-        <div class="form-group password-wrapper">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-          <span class="toggle-password" onclick="togglePassword('password')">&#128065;</span>
+        <div class="img__btn">
+          <span class="m--up">Sign Up</span>
+          <span class="m--in">Sign In</span>
         </div>
-        <button type="submit" class="auth-button">Register</button>
-      </form>
-      <p>Already have an account? <a href="login.html">Login here</a></p>
+      </div>
+      <div class="form sign-up">
+        <h2>Create your Account</h2>
+        <label>
+          <span>Name</span>
+          <input type="text" id="sign-up-name" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" id="sign-up-email" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="sign-up-password" />
+        </label>
+        <button type="button" class="submit" id="sign-up-submit">Sign Up</button>
+      </div>
     </div>
   </div>
-  <script>
-    function togglePassword(id) {
-      const passwordInput = document.getElementById(id);
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-    }
-  </script>
   <script src="script.js"></script>
 </body>
 </html>
