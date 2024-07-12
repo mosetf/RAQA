@@ -1,10 +1,16 @@
 const User = require('../../models/User');
+const logger = require('../../utils/logger');
 
 exports.registerUser = async (userData) => {
-    const user = new User(userData);
-    await user.save();
-    console.log('Registration successful' );
-    return { message: 'Registration successful' };
+    try {
+        const user = new User(userData);
+        await user.save();
+        logger.info('User saved successfully');
+        return { message: 'Registration successful' };
+    } catch (error) {
+        logger.error('Error saving user: ' + error.message);
+        throw new Error('Error saving user: ' + error.message);
+    }
 };
 
 exports.findUserByEmail = async (email) => {
