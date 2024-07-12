@@ -5,23 +5,20 @@ const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const routes = require('./routes/routes');
-const passport = require('passport');
-const connectDB = require('./config/db'); // Import the connectDB function
+const passport = require('./config/passport');
+const connectDB = require('./config/db');
+const logger = require('./utils/logger');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-/**
- * Retrieves a random quote from the 'https://api.quotable.io/quotes/random' API.
- * @returns {Promise<{quoteText: string, quoteAuthor: string}>} The quote text and author.
- */
 async function getQuote() {
     try {
         const response = await axios.get('https://api.quotable.io/quotes/random');
         const data = response.data[0];
         return { quoteText: data.content, quoteAuthor: data.author };
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         return { quoteText: 'Error fetching quote', quoteAuthor: "" };
     }
 }
@@ -45,6 +42,11 @@ app.use(passport.session());
 
 app.use('/api', routes);
 
+app.use((err, req, res, next) => {
+    logger.error(err.message);
+    res.status(500).send('Something went wrong');
+});
+
 connectDB().then(() => {
-    app.listen(port, () => console.log(`Server listening on port ${port}`));
+    app.listen(port, () => logger.info(`Server listening on port ${port}`));
 });
