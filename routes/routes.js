@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const passport = require('../config/passport');
+//const passport = require('../config/passport');
 const authRoutes = require('../controllers/authentication/authRoutes');
 const regRoutes = require('../controllers/registration/regRoutes');
 const { sendPasswordResetEmail } = require('../utils/mailer');
