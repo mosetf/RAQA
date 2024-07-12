@@ -3,6 +3,7 @@ const User = require('../../models/User');
 
 exports.login = async (user) => {
     const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
+    console.log('Logged in successfully');
     return { message: 'Logged in successfully', token };
 };
 
