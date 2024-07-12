@@ -1,24 +1,25 @@
-require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-//const passport = require('../config/passport');
-const authRoutes = require('../controllers/authentication/authRoutes');
-const regRoutes = require('../controllers/registration/regRoutes');
+const authController = require('../controllers/authentication/authController');
+const regController = require('../controllers/registration/regController');
 const { sendPasswordResetEmail } = require('../utils/mailer');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const logger = require('../utils/logger');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 router.use(express.json());
 
-// Authentication Routes
-router.use('/auth', authRoutes);
+router.use((req, res, next) => {
+    logger.info(`${req.method} ${req.url}`);
+    next();
+});
 
-// Registration Routes
-router.use('/register', regRoutes);
+router.post('/login', authController.login);
+router.post('/register', regController.register);
 
-// Forgot Password Route
 router.post('/forgot_password', async (req, res) => {
     const { email } = req.body;
 
@@ -35,11 +36,11 @@ router.post('/forgot_password', async (req, res) => {
 
         res.send('Password reset link sent to your email');
     } catch (err) {
+        logger.error(err.message);
         res.status(500).send('Internal server error');
     }
 });
 
-// Reset Password Route
 router.post('/reset_password', async (req, res) => {
     const { password, confirmPassword, token } = req.body;
 
@@ -60,6 +61,7 @@ router.post('/reset_password', async (req, res) => {
 
         res.send('Password has been reset successfully');
     } catch (err) {
+        logger.error(err.message);
         res.status(500).send('Internal server error');
     }
 });
