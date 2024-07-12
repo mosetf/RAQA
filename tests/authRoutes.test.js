@@ -35,7 +35,7 @@ afterAll(async () => {
 describe('Authentication API', () => {
     it('should log in a user', async () => {
         const response = await request(app)
-            .post('/login')
+            .post('/api/login')
             .send({ email: 'testuser@example.com', password: 'testpassword' });
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Logged in successfully');
@@ -44,7 +44,7 @@ describe('Authentication API', () => {
 
     it('should register a new user', async () => {
         const response = await request(app)
-            .post('/register')
+            .post('/api/register')
             .send({ username: 'newuser', email: 'newuser@example.com', password: 'newpassword' });
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Registration successful');
