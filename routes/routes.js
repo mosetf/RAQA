@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const logger = require('../utils/logger');
+const passport = require('../config/passport');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
@@ -17,7 +18,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router.post('/login', authController.login);
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), authController.login);
 router.post('/register', regController.register);
 
 router.post('/forgot_password', async (req, res) => {
