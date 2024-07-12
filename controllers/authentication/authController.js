@@ -10,6 +10,7 @@ exports.login = async (req, res) => {
     }
 };
 
+/*
 exports.logout = (req, res) => {
     try {
         const response = authService.logout(req);
@@ -18,3 +19,4 @@ exports.logout = (req, res) => {
         res.status(500).json({ error: 'Logout failed' });
     }
 };
+*/
