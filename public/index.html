@@ -54,8 +54,14 @@
           <span>Password</span>
           <input type="password" id="sign-up-password" />
           <button type="button" class="toggle-password" id="toggle-sign-up-password">👁️</button>
-          <span id="sign-up-password-strength" class="strength-message"></span>
         </label>
+        <ul id="password-requirements">
+          <li id="length-requirement">At least 8 characters long</li>
+          <li id="uppercase-requirement">At least one uppercase letter</li>
+          <li id="lowercase-requirement">At least one lowercase letter</li>
+          <li id="number-requirement">At least one number</li>
+          <li id="special-requirement">At least one special character</li>
+        </ul>
         <label>
           <span>Confirm Password</span>
           <input type="password" id="sign-up-confirm-password" />
