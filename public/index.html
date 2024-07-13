@@ -14,13 +14,19 @@
       <h2>Welcome</h2>
       <label>
         <span>Email</span>
-        <input type="email" id="sign-in-email" />
+        <input type="email" id="sign-in-email" class="input-field" />
         <span id="sign-in-email-error" class="error-message"></span>
       </label>
       <label>
         <span>Password</span>
-        <input type="password" id="sign-in-password" />
-        <button type="button" class="toggle-password" id="toggle-sign-in-password">👁️</button>
+        <div class="password-wrapper">
+          <input type="password" id="sign-in-password" class="input-field" />
+          <button type="button" class="toggle-password" id="toggle-sign-in-password">
+            <svg id="sign-in-eye-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+              <path d="M16 8s-3-5.333-8-5.333S0 8 0 8s3 5.333 8 5.333S16 8 16 8zm-8 3.333a3.333 3.333 0 1 1 0-6.667 3.333 3.333 0 0 1 0 6.667zm0-1.666a1.667 1.667 0 1 0 0-3.334 1.667 1.667 0 0 0 0 3.334z"/>
+            </svg>
+          </button>
+        </div>
         <span id="sign-in-password-error" class="error-message"></span>
       </label>
       <p class="forgot-pass">Forgot password?</p>
@@ -43,17 +49,23 @@
         <h2>Create your Account</h2>
         <label>
           <span>Name</span>
-          <input type="text" id="sign-up-name" />
+          <input type="text" id="sign-up-name" class="input-field" />
         </label>
         <label>
           <span>Email</span>
-          <input type="email" id="sign-up-email" />
+          <input type="email" id="sign-up-email" class="input-field" />
           <span id="sign-up-email-error" class="error-message"></span>
         </label>
         <label>
           <span>Password</span>
-          <input type="password" id="sign-up-password" />
-          <button type="button" class="toggle-password" id="toggle-sign-up-password">👁️</button>
+          <div class="password-wrapper">
+            <input type="password" id="sign-up-password" class="input-field" />
+            <button type="button" class="toggle-password" id="toggle-sign-up-password">
+              <svg id="sign-up-eye-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                <path d="M16 8s-3-5.333-8-5.333S0 8 0 8s3 5.333 8 5.333S16 8 16 8zm-8 3.333a3.333 3.333 0 1 1 0-6.667 3.333 3.333 0 0 1 0 6.667zm0-1.666a1.667 1.667 0 1 0 0-3.334 1.667 1.667 0 0 0 0 3.334z"/>
+              </svg>
+            </button>
+          </div>
         </label>
         <ul id="password-requirements">
           <li id="length-requirement">At least 8 characters long</li>
@@ -64,7 +76,7 @@
         </ul>
         <label>
           <span>Confirm Password</span>
-          <input type="password" id="sign-up-confirm-password" />
+          <input type="password" id="sign-up-confirm-password" class="input-field" />
           <span id="sign-up-confirm-password-error" class="error-message"></span>
         </label>
         <button type="button" class="submit" id="sign-up-submit">Sign Up</button>
