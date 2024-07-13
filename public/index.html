@@ -15,10 +15,13 @@
       <label>
         <span>Email</span>
         <input type="email" id="sign-in-email" />
+        <span id="sign-in-email-error" class="error-message"></span>
       </label>
       <label>
         <span>Password</span>
         <input type="password" id="sign-in-password" />
+        <button type="button" class="toggle-password" id="toggle-sign-in-password">👁️</button>
+        <span id="sign-in-password-error" class="error-message"></span>
       </label>
       <p class="forgot-pass">Forgot password?</p>
       <button type="button" class="submit" id="sign-in-submit">Sign In</button>
@@ -45,10 +48,18 @@
         <label>
           <span>Email</span>
           <input type="email" id="sign-up-email" />
+          <span id="sign-up-email-error" class="error-message"></span>
         </label>
         <label>
           <span>Password</span>
           <input type="password" id="sign-up-password" />
+          <button type="button" class="toggle-password" id="toggle-sign-up-password">👁️</button>
+          <span id="sign-up-password-strength" class="strength-message"></span>
+        </label>
+        <label>
+          <span>Confirm Password</span>
+          <input type="password" id="sign-up-confirm-password" />
+          <span id="sign-up-confirm-password-error" class="error-message"></span>
         </label>
         <button type="button" class="submit" id="sign-up-submit">Sign Up</button>
       </div>
