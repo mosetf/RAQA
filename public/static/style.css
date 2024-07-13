@@ -303,3 +303,17 @@ input {
     color: green;
     font-size: 0.9em;
 }
+
+#password-requirements {
+    list-style: none;
+    padding: 0;
+}
+
+#password-requirements li {
+    color: red;
+}
+
+#password-requirements li.valid {
+    color: green;
+}
+
