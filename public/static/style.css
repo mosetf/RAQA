@@ -254,6 +254,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
+    width: calc(100% - 30px); /* Adjust width to accommodate the icon */
     transition: border-color 0.3s, background 0.3s;
 }
 
@@ -265,8 +266,6 @@ input {
 
 .password-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
 .toggle-password {
@@ -275,6 +274,8 @@ input {
     cursor: pointer;
     position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #000;
 }
 
