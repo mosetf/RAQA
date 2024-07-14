@@ -33,6 +33,14 @@ afterAll(async () => {
 
 // Test cases
 describe('Authentication API', () => {
+    it('should register a new user', async () => {
+        const response = await request(app)
+            .post('/api/register')
+            .send({ username: 'newuser', email: 'newuser@example.com', password: 'newpassword' });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.message).toBe('Registration successful');
+    });
+
     it('should log in a user', async () => {
         const response = await request(app)
             .post('/api/login')
@@ -40,13 +48,5 @@ describe('Authentication API', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Logged in successfully');
         expect(response.body.token).toBeDefined();
-    });
-
-    it('should register a new user', async () => {
-        const response = await request(app)
-            .post('/api/register')
-            .send({ username: 'newuser', email: 'newuser@example.com', password: 'newpassword' });
-        expect(response.statusCode).toBe(200);
-        expect(response.body.message).toBe('Registration successful');
     });
 });
