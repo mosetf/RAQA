@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Password visibility toggle
   document.getElementById('toggle-sign-in-password').addEventListener('click', function() {
-    togglePasswordVisibility('sign-in-password', 'toggle-sign-in-password');
+    togglePasswordVisibility('sign-in-password', 'sign-in-eye-icon');
   });
   document.getElementById('toggle-sign-up-password').addEventListener('click', function() {
-    togglePasswordVisibility('sign-up-password', 'toggle-sign-up-password');
+    togglePasswordVisibility('sign-up-password', 'sign-up-eye-icon');
   });
 
   // Real-time email format validation
@@ -95,12 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  function togglePasswordVisibility(passwordFieldId, toggleButtonId) {
+  function togglePasswordVisibility(passwordFieldId, eyeIconId) {
     const passwordField = document.getElementById(passwordFieldId);
-    const toggleButton = document.getElementById(toggleButtonId);
+    const eyeIcon = document.getElementById(eyeIconId);
     const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordField.setAttribute('type', type);
-    toggleButton.textContent = type === 'password' ? '👁️' : '🙈';
+    eyeIcon.setAttribute('class', type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash');
   }
 
   function validateEmail(email) {
