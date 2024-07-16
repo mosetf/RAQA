@@ -4,14 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.cont').classList.toggle('s--signup');
   });
 
-  // Password visibility toggle
-  document.getElementById('toggle-sign-in-password').addEventListener('click', function() {
-    togglePasswordVisibility('sign-in-password', 'sign-in-eye-icon');
-  });
-  document.getElementById('toggle-sign-up-password').addEventListener('click', function() {
-    togglePasswordVisibility('sign-up-password', 'sign-up-eye-icon');
-  });
-
   // Real-time email format validation
   document.getElementById('sign-up-email').addEventListener('input', function() {
     validateEmailInput('sign-up-email', 'sign-up-email-error');
@@ -94,14 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('An error occurred while signing up. Please try again later.');
     }
   });
-
-  function togglePasswordVisibility(passwordFieldId, eyeIconId) {
-    const passwordField = document.getElementById(passwordFieldId);
-    const eyeIcon = document.getElementById(eyeIconId);
-    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordField.setAttribute('type', type);
-    eyeIcon.setAttribute('class', type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash');
-  }
 
   function validateEmail(email) {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
