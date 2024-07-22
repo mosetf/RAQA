@@ -28,7 +28,12 @@ app.get('/api/quote', async (req, res) => {
     res.json(quote);
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your_secret_key',
