@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Website</title>
-  <link rel="stylesheet" href="../src/styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <br>
-  <br>
   <div class="cont">
     <div class="form sign-in">
       <h2>Welcome</h2>
@@ -24,7 +22,7 @@
         </div>
         <span id="sign-in-password-error" class="error-message"></span>
       </label>
-      <p class="forgot-pass" id="forgot-pass">Forgot password?</p>
+      <a href="#" id="forgot-password-link">Forgot Password?</a>
       <button type="button" class="submit" id="sign-in-submit">Sign In</button>
     </div>
     <div class="sub-cont">
@@ -73,6 +71,9 @@
       </div>
     </div>
   </div>
-  <script src="../src/script.js"></script>
+
+  <div id="react-root"></div> <!-- React root for rendering components -->
+
+  <script src="./script.js"></script>
 </body>
 </html>
