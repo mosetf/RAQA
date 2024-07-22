@@ -3,35 +3,29 @@ import axios from 'axios';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/forgot-password', { email });
-      setMessage(response.data.message);
+      await axios.post('/request-password-reset', { email });
+      alert('Password reset link sent');
     } catch (error) {
-      setMessage('Error sending password reset email');
+      alert('Error sending password reset link');
     }
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2>Forgot Password</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Send Reset Link</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email"
+        required
+      />
+      <button type="submit">Send Reset Link</button>
+    </form>
   );
 };
 
