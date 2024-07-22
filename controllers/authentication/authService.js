@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 const crypto = require('crypto');
-const { sendPasswordResetEmail } = require('../utils/mailer');
+const { sendPasswordResetEmail } = require('../../utils/mailer');
 
 exports.login = async (user) => {
     const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
