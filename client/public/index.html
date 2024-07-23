@@ -22,7 +22,7 @@
         </div>
         <span id="sign-in-password-error" class="error-message"></span>
       </label>
-      <a href="#" id="forgot-password-link">Forgot Password?</a>
+      <a href="/forgot-password" id="forgot-password-link">Forgot Password?</a>
       <button type="button" class="submit" id="sign-in-submit">Sign In</button>
     </div>
     <div class="sub-cont">
@@ -72,8 +72,9 @@
     </div>
   </div>
 
-  <div id="react-root"></div> <!-- React root for rendering components -->
-
+  <div id="root"></div> <!-- This is the root for the React app -->
+  
   <script src="./script.js"></script>
+  <script src="../src/index.js"></script> <!-- New script to initialize React app -->
 </body>
 </html>
