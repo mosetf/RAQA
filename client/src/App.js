@@ -1,16 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ForgotPassword from './components/forgotpassword';
-import ResetPassword from './components/ResetPassword';
+import ResetPassword from './components/resetpassword';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password" component={ResetPassword} />
-        {/* Add other routes here */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        {/* Add other routes here if needed */}
       </Routes>
     </Router>
   );
