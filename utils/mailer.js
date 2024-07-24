@@ -1,9 +1,8 @@
 const nodemailer = require('nodemailer');
 
+
 let transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: false,
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -11,12 +10,17 @@ let transporter = nodemailer.createTransport({
 });
 
 async function sendPasswordResetEmail(email, resetLink) {
-  await transporter.sendMail({
-    to: email,
-    from: 'no-reply@quotegenerator.com',
-    subject: 'Password Reset',
-    html: `<p>You requested a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
-  });
+  try {
+    await transporter.sendMail({
+      to: email,
+      from: process.env.EMAIL_USER,
+      subject: 'Password Reset',
+      html: `<p>You requested a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
+    });
+    console.log('Password reset email sent successfully');
+  } catch (error) {
+    console.error('Failed to send password reset email', error);
+  }
 }
 
 module.exports = { sendPasswordResetEmail };
