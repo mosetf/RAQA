@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware setup
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client/public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your_secret_key',
     resave: false,
@@ -42,13 +42,13 @@ app.get('/api/quote', async (req, res) => {
     res.json(quote);
 });
 
-// Serve the React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/public', 'index.html'));
-});
-
 // API routes
 app.use('/api', routes);
+
+// Serve the React app for all other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
