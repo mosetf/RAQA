@@ -91,95 +91,35 @@ const MainPage = () => {
   };
 
   return (
-    <div className="cont">
-      <div className={`form ${isSignup ? 'sign-up' : 'sign-in'}`}>
-        {isSignup ? (
-          <>
-            <h2>Create your Account</h2>
-            <label>
-              <span>Name</span>
-              <input
-                type="text"
-                value={signUpName}
-                onChange={(e) => setSignUpName(e.target.value)}
-                className="input-field"
-              />
-            </label>
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                value={signUpEmail}
-                onChange={(e) => setSignUpEmail(e.target.value)}
-                className="input-field"
-              />
-              <span id="sign-up-email-error" className="error-message"></span>
-            </label>
-            <label>
-              <span>Password</span>
-              <div className="password-wrapper">
-                <input
-                  type="password"
-                  value={signUpPassword}
-                  onChange={(e) => setSignUpPassword(e.target.value)}
-                  className="input-field"
-                />
-              </div>
-            </label>
-            <ul id="password-requirements">
-              <li id="length-requirement">At least 8 characters long</li>
-              <li id="uppercase-requirement">At least one uppercase letter</li>
-              <li id="lowercase-requirement">At least one lowercase letter</li>
-              <li id="number-requirement">At least one number</li>
-              <li id="special-requirement">At least one special character</li>
-            </ul>
-            <label>
-              <span>Confirm Password</span>
-              <input
-                type="password"
-                value={signUpConfirmPassword}
-                onChange={(e) => setSignUpConfirmPassword(e.target.value)}
-                className="input-field"
-              />
-              <span id="sign-up-confirm-password-error" className="error-message"></span>
-            </label>
-            <button type="button" className="submit" onClick={handleSignUpSubmit}>
-              Sign Up
-            </button>
-          </>
-        ) : (
-          <>
-            <h2>Welcome</h2>
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                value={signInEmail}
-                onChange={(e) => setSignInEmail(e.target.value)}
-                className="input-field"
-              />
-              <span id="sign-in-email-error" className="error-message"></span>
-            </label>
-            <label>
-              <span>Password</span>
-              <div className="password-wrapper">
-                <input
-                  type="password"
-                  value={signInPassword}
-                  onChange={(e) => setSignInPassword(e.target.value)}
-                  className="input-field"
-                />
-              </div>
-              <span id="sign-in-password-error" className="error-message"></span>
-            </label>
-            <Link to="/forgot-password" id="forgot-password-link">
-              Forgot Password?
-            </Link>
-            <button type="button" className="submit" onClick={handleSignInSubmit}>
-              Sign In
-            </button>
-          </>
-        )}
+    <div className={`cont ${isSignup ? 's--signup' : ''}`}>
+      <div className="form sign-in">
+        <h2>Welcome</h2>
+        <label>
+          <span>Email</span>
+          <input
+            type="email"
+            value={signInEmail}
+            onChange={(e) => setSignInEmail(e.target.value)}
+            className="input-field"
+          />
+          <span id="sign-in-email-error" className="error-message"></span>
+        </label>
+        <label>
+          <span>Password</span>
+          <div className="password-wrapper">
+            <input
+              type="password"
+              value={signInPassword}
+              onChange={(e) => setSignInPassword(e.target.value)}
+              className="input-field"
+            />
+          </div>
+          <span id="sign-in-password-error" className="error-message"></span>
+        </label>
+        <Link to="/forgot-password" id="forgot-password-link">Forgot Password?</Link>
+        <button type="button" className="submit" onClick={handleSignInSubmit}>
+          Sign In
+        </button>
       </div>
       <div className="sub-cont">
         <div className="img">
@@ -193,6 +133,59 @@ const MainPage = () => {
             <span className="m--up">Sign Up</span>
             <span className="m--in">Sign In</span>
           </div>
+        </div>
+        <div className="form sign-up">
+          <h2>Create your Account</h2>
+          <label>
+            <span>Name</span>
+            <input
+              type="text"
+              value={signUpName}
+              onChange={(e) => setSignUpName(e.target.value)}
+              className="input-field"
+            />
+          </label>
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              value={signUpEmail}
+              onChange={(e) => setSignUpEmail(e.target.value)}
+              className="input-field"
+            />
+            <span id="sign-up-email-error" className="error-message"></span>
+          </label>
+          <label>
+            <span>Password</span>
+            <div className="password-wrapper">
+              <input
+                type="password"
+                value={signUpPassword}
+                onChange={(e) => setSignUpPassword(e.target.value)}
+                className="input-field"
+              />
+            </div>
+          </label>
+          <ul id="password-requirements">
+            <li id="length-requirement">At least 8 characters long</li>
+            <li id="uppercase-requirement">At least one uppercase letter</li>
+            <li id="lowercase-requirement">At least one lowercase letter</li>
+            <li id="number-requirement">At least one number</li>
+            <li id="special-requirement">At least one special character</li>
+          </ul>
+          <label>
+            <span>Confirm Password</span>
+            <input
+              type="password"
+              value={signUpConfirmPassword}
+              onChange={(e) => setSignUpConfirmPassword(e.target.value)}
+              className="input-field"
+            />
+            <span id="sign-up-confirm-password-error" className="error-message"></span>
+          </label>
+          <button type="button" className="submit" onClick={handleSignUpSubmit}>
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
