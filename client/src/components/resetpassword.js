@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/reset-password', { token, newPassword });
+      await axios.post('/api/reset-password', { token, newPassword });
       alert('Password has been reset');
     } catch (error) {
       alert('Error resetting password');
