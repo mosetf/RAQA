@@ -56,18 +56,18 @@ exports.updatePassword = async (userId, newPassword) => {
 };
 
 exports.forgotPassword = async (email) => {
-    const user = await this.findUserByEmail(email);
-    if (!user) {
+  const user = await this.findUserByEmail(email);
+  if (!user) {
       logger.error('User not found for email: ' + email); // Log user not found
       throw new Error('User not found');
-    }
-  
-    const token = crypto.randomBytes(20).toString('hex');
-    await this.savePasswordResetToken(user._id, token);
-  
-    const resetLink = `http://yourdomain.com/reset-password?token=${token}`;
-    await sendPasswordResetEmail(email, resetLink);
-    logger.info(`Password reset email sent to: ${email}`); // Log email sent
+  }
+
+  const token = crypto.randomBytes(20).toString('hex');
+  await this.savePasswordResetToken(user._id, token);
+
+  const resetLink = `${process.env.BASE_URL}/reset-password?token=${token}`;
+  await sendPasswordResetEmail(email, resetLink);
+  logger.info(`Password reset email sent to: ${email}`);
 };
 
 exports.resetPassword = async (token, newPassword) => {
