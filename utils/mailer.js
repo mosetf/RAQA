@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
 
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
   auth: {
@@ -10,18 +12,16 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-async function sendPasswordResetEmail(email, resetLink) {
-  try {
-    await transporter.sendMail({
-      to: email,
-      from: process.env.EMAIL_USER,
-      subject: 'Password Reset',
-      html: `<p>You requested a password reset</p><p>Click this <a href="${resetLink}">link</a> to reset your password</p>`,
-    });
-    console.log('Password reset email sent successfully');
-  } catch (error) {
-    console.error('Failed to send password reset email', error);
-  }
-}
+const handlebarOptions = {
+  viewEngine: {
+      extName: '.hbs',
+      partialsDir: path.resolve('./emailTemplates'),
+      defaultLayout: false,
+  },
+  viewPath: path.resolve('./emailTemplates'),
+  extName: '.hbs',
+};
 
-module.exports = { sendPasswordResetEmail };
+transporter.use('compile', hbs(handlebarOptions));
+
+module.exports = transporter;
