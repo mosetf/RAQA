@@ -2,17 +2,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 const crypto = require('crypto');
 const { sendPasswordResetEmail } = require('../../utils/mailer');
-const logger = require('../../utils/logger'); // Import the logger
+const logger = require('../../utils/logger');
 
 exports.login = async (user) => {
     const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
-    logger.info('Logged in successfully'); // Use logger instead of console.log
+    logger.info('Logged in successfully');
     return { message: 'Logged in successfully', token };
 };
 
 exports.logout = (req) => {
     req.logout();
-    logger.info('Logged out successfully'); // Use logger
+    logger.info('Logged out successfully');
     return { message: 'Logged out successfully' };
 };
 
@@ -30,7 +30,7 @@ exports.savePasswordResetToken = async (userId, token) => {
         resetPasswordExpires: Date.now() + 3600000, // 1 hour
       }
     );
-    logger.info(`Password reset token saved for user: ${userId}`); // Log token saved
+    logger.info(`Password reset token saved for user: ${userId}`);
 };
 
 exports.verifyPasswordResetToken = async (token) => {
@@ -39,26 +39,26 @@ exports.verifyPasswordResetToken = async (token) => {
       resetPasswordExpires: { $gt: Date.now() },
     });
     if (user) {
-        logger.info(`Password reset token verified for user: ${user._id}`); // Log token verified
+        logger.info(`Password reset token verified for user: ${user._id}`);
     } else {
-        logger.warn(`Invalid or expired password reset token: ${token}`); // Log invalid token
+        logger.warn(`Invalid or expired password reset token: ${token}`);
     }
     return user ? user._id : null;
 };
 
 exports.updatePassword = async (userId, newPassword) => {
-    const user = await User.findById(userId);
-    user.password = newPassword;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
-    await user.save();
-    logger.info(`Password updated for user: ${userId}`); // Log password updated
+  const user = await User.findById(userId);
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
+  logger.info(`Password updated for user: ${userId}`);
 };
 
 exports.forgotPassword = async (email) => {
   const user = await this.findUserByEmail(email);
   if (!user) {
-      logger.error('User not found for email: ' + email); // Log user not found
+      logger.error('User not found for email: ' + email);
       throw new Error('User not found');
   }
 
@@ -71,12 +71,12 @@ exports.forgotPassword = async (email) => {
 };
 
 exports.resetPassword = async (token, newPassword) => {
-    const userId = await this.verifyPasswordResetToken(token);
-    if (!userId) {
-      logger.error('Invalid or expired token for password reset'); // Log invalid token
+  const userId = await this.verifyPasswordResetToken(token);
+  if (!userId) {
+      logger.error('Invalid or expired token for password reset');
       throw new Error('Invalid or expired token');
-    }
-  
-    await this.updatePassword(userId, newPassword);
-    logger.info(`Password reset successfully for user: ${userId}`); // Log password reset
+  }
+
+  await this.updatePassword(userId, newPassword);
+  logger.info(`Password reset successfully for user: ${userId}`);
 };
