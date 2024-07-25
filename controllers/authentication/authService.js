@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 const crypto = require('crypto');
-const { sendPasswordResetEmail } = require('../../utils/mailer');
+const transporter = require('../../utils/mailer');
 const logger = require('../../utils/logger');
 
 exports.login = async (user) => {
@@ -58,7 +58,7 @@ exports.updatePassword = async (userId, newPassword) => {
 exports.forgotPassword = async (email) => {
   const user = await this.findUserByEmail(email);
   if (!user) {
-      logger.error('User not found for email: ' + email);
+      logger.error('User not found for email: ' + email); // Log user not found
       throw new Error('User not found');
   }
 
@@ -66,7 +66,18 @@ exports.forgotPassword = async (email) => {
   await this.savePasswordResetToken(user._id, token);
 
   const resetLink = `${process.env.BASE_URL}/reset-password?token=${token}`;
-  await sendPasswordResetEmail(email, resetLink);
+  const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Password Reset',
+      template: 'resetPassword',
+      context: {
+          name: user.name,
+          resetLink: resetLink,
+      },
+  };
+
+  await transporter.sendMail(mailOptions);
   logger.info(`Password reset email sent to: ${email}`);
 };
 
