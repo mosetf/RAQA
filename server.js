@@ -23,7 +23,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Function to fetch a random quote
 async function getQuote() {
     try {
         const response = await axios.get('https://api.quotable.io/quotes/random');
