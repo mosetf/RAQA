@@ -12,7 +12,6 @@ const logger = require('./utils/logger');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware setup
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(session({
