@@ -116,10 +116,12 @@ const MainPage = () => {
           </div>
           <span id="sign-in-password-error" className="error-message"></span>
         </label>
-        <Link to="/forgot-password" id="forgot-password-link">Forgot Password?</Link>
-        <button type="button" className="submit" onClick={handleSignInSubmit}>
-          Sign In
-        </button>
+        <div className="forgot-password-container">
+          <Link to="/forgot-password" id="forgot-password-link">Forgot Password?</Link>
+          <button type="button" className="submit" onClick={handleSignInSubmit}>
+            Sign In
+          </button>
+        </div>
       </div>
       <div className="sub-cont">
         <div className="img">
