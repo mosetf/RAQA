@@ -287,13 +287,13 @@ input {
     color: #cfcfcf;
 }
 
-.submit {
+/*.submit {
     margin-top: 40px;
     margin-bottom: 20px;
     background: #d4af7a;
     text-transform: uppercase;
 }
-
+*/
 .fb-btn {
     border: 2px solid #d3dae9;
     color: #8fa1c7;
@@ -350,3 +350,32 @@ input {
 #password-requirements li.valid {
     color: green;
 }
+
+.forgot-password-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  #forgot-password-link {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  #forgot-password-link:hover {
+    text-decoration: underline;
+  }
+  
+  .submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit:hover {
+    background-color: #0056b3;
+  }
