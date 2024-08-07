@@ -290,7 +290,7 @@ input {
 .submit {
     margin-top: 40px;
     margin-bottom: 20px;
-    background: #d4af7a;
+    background-color: #007bff;
     text-transform: uppercase;
 }
 
@@ -344,9 +344,4 @@ input {
 }
 
 #password-requirements li {
-    color: red;
-}
-
-#password-requirements li.valid {
-    color: green;
-}
+   
