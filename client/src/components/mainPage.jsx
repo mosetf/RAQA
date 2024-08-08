@@ -94,33 +94,35 @@ const MainPage = () => {
     <div className={`cont ${isSignup ? 's--signup' : ''}`}>
       <div className="form sign-in">
         <h2>Welcome</h2>
-        <label>
-          <span>Email</span>
-          <input
-            type="email"
-            value={signInEmail}
-            onChange={(e) => setSignInEmail(e.target.value)}
-            className="input-field"
-          />
-          <span id="sign-in-email-error" className="error-message"></span>
-        </label>
-        <label>
-          <span>Password</span>
-          <div className="password-wrapper">
+        <div className="input-container">
+          <label>
+            <span>Email</span>
             <input
-              type="password"
-              value={signInPassword}
-              onChange={(e) => setSignInPassword(e.target.value)}
+              type="email"
+              value={signInEmail}
+              onChange={(e) => setSignInEmail(e.target.value)}
               className="input-field"
             />
+            <span id="sign-in-email-error" className="error-message"></span>
+          </label>
+          <label>
+            <span>Password</span>
+            <div className="password-wrapper">
+              <input
+                type="password"
+                value={signInPassword}
+                onChange={(e) => setSignInPassword(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            <span id="sign-in-password-error" className="error-message"></span>
+          </label>
+          <div className="forgot-password-container">
+            <Link to="/forgot-password" id="forgot-password-link">Forgot Password?</Link>
+            <button type="button" className="submit" onClick={handleSignInSubmit}>
+              Sign In
+            </button>
           </div>
-          <span id="sign-in-password-error" className="error-message"></span>
-        </label>
-        <div className="forgot-password-container">
-          <Link to="/forgot-password" id="forgot-password-link">Forgot Password?</Link>
-          <button type="button" className="submit" onClick={handleSignInSubmit}>
-            Sign In
-          </button>
         </div>
       </div>
       <div className="sub-cont">
