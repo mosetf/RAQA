@@ -58,6 +58,7 @@ exports.updatePassword = async (userId, newPassword) => {
 exports.forgotPassword = async (email) => {
   const user = await this.findUserByEmail(email);
   if (!user) {
+      const errorMessage = 'User not found';
       logger.error('User not found for email: ' + email);
       throw new Error('User not found');
   }
