@@ -27,11 +27,11 @@ exports.login = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
     try {
-      await authService.forgotPassword(email);
-      res.json({ message: 'Password reset email sent' });
+      await authService.forgotPassword(req.body.email);
+      res.status(200).send({ message: 'Password reset link sent' });
     } catch (error) {
       logger.error('Forgot password failed: ' + error.message);
-      res.status(500).json({ error: 'Forgot password failed' });
+      res.status(400).send({ error: error.message });
     }
   };
   
