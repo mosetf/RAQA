@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
+import log from '../logger';
+
 const MainPage = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [signInEmail, setSignInEmail] = useState('');
@@ -35,7 +38,7 @@ const MainPage = () => {
       alert('Invalid email format');
       return;
     }
-  
+
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -46,14 +49,15 @@ const MainPage = () => {
       });
       const result = await response.json();
       if (response.ok) {
-        console.log('Login successful, storing token and redirecting...');
+        log.debug('Login successful, storing token and redirecting...');
         localStorage.setItem('token', result.token); // Save the token
+        log.debug('Token stored:', result.token);
         window.location.href = '/user'; // Redirect to user page
       } else {
         alert(result.message);
       }
     } catch (error) {
-      console.error('Error:', error);
+      log.error('Error:', error);
       alert('An error occurred while signing in.');
     }
   };
