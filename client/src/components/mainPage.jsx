@@ -35,7 +35,7 @@ const MainPage = () => {
       alert('Invalid email format');
       return;
     }
-
+  
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -45,7 +45,13 @@ const MainPage = () => {
         body: JSON.stringify({ email: signInEmail, password: signInPassword })
       });
       const result = await response.json();
-      alert(result.message);
+      if (response.ok) {
+        console.log('Login successful, storing token and redirecting...');
+        localStorage.setItem('token', result.token); // Save the token
+        window.location.href = '/user'; // Redirect to user page
+      } else {
+        alert(result.message);
+      }
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred while signing in.');
