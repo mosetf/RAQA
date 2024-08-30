@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './homePage.css';
+import './HomePage.css';
 
 const HomePage = () => {
   const [quotes, setQuotes] = useState([]);
