@@ -25,7 +25,9 @@ app.use(passport.session());
 
 async function getQuote() {
     try {
-        const response = await axios.get('https://api.quotable.io/quotes/random');
+        var category = 'happiness';
+        const api_url = `https://api.api-ninjas.com/v1/quotes?category=${category}`;
+        const response = await axios.get(api_url, headers={ 'X-Api-Key': process.env.API_KEY });
         const data = response.data[0];
         return { quoteText: data.content, quoteAuthor: data.author };
     } catch (error) {
