@@ -8,14 +8,19 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
+  const isAuthenticated = localStorage.getItem('token') ? true : false;
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/user" element={<ProtectedRoute element={UserPage} />} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+
       </Routes>
     </Router>
   );
