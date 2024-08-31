@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './UserPage.css'; // Ensure you have CSS for styling
+import './UserPage.css';
 
 const UserPage = () => {
   const [quote, setQuote] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchQuote = async () => {
@@ -40,18 +40,20 @@ const UserPage = () => {
           Dashboard
         </button>
       </div>
-      {loading ? (
-        <div className="loader">Loading...</div>
-      ) : error ? (
-        <p className="error">{error}</p>
-      ) : (
-        <div className="quote-container">
-          <p className="quote">"{quote}"</p>
-          {/* If you have a quote author, you can add it here */}
-          {/* <p className="author">- {author}</p> */}
-        </div>
-      )}
-      <button onClick={fetchQuote} className="refresh-button">Get Another Quote</button>
+      <div className="quote-section">
+        {loading ? (
+          <div className="loader">Loading...</div>
+        ) : error ? (
+          <p className="error">{error}</p>
+        ) : (
+          <div className="quote-container">
+            <p className="quote">"{quote}"</p>
+            {/* If you have a quote author, you can add it here */}
+            {/* <p className="author">- {author}</p> */}
+          </div>
+        )}
+        <button onClick={fetchQuote} className="refresh-button">Get Another Quote</button>
+      </div>
     </div>
   );
 };
