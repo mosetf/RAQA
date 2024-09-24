@@ -7,7 +7,7 @@ const logger = require('../../utils/logger');
 exports.login = async (user) => {
     const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
     logger.info('Logged in successfully');
-    return { message: 'Logged in successfully', token };
+    return { message: 'Logged in successfully', token, username: user.username };
 };
 
 exports.logout = (req) => {

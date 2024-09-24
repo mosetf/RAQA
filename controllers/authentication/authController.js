@@ -5,33 +5,33 @@ const bcrypt = require('bcrypt');
 const User = require('../../models/User');
 
 exports.login = async (req, res) => {
-    logger.info('Attempting to log in');
-    
-    const { email, password } = req.body;
+  logger.info('Attempting to log in');
+  
+  const { email, password } = req.body;
 
-    try {
-        // Check if the user exists by email
-        const user = await User.findOne({ email });
-        if (!user) {
-            logger.error('Invalid email or password');
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
+  try {
+      // Check if the user exists by email
+      const user = await User.findOne({ email });
+      if (!user) {
+          logger.error('Invalid email or password');
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
 
-        // Compare the provided password with the stored hashed password
-        const isPasswordValid = await user.comparePassword(password);
-        if (!isPasswordValid) {
-            logger.error('Invalid email or password');
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
+      // Compare the provided password with the stored hashed password
+      const isPasswordValid = await user.comparePassword(password);
+      if (!isPasswordValid) {
+          logger.error('Invalid email or password');
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
 
-        // If email and password are valid, generate a JWT token
-        const response = await authService.login(user);
-        logger.info('Login successful');
-        return res.json(response);
-    } catch (error) {
-        logger.error('Login failed: ' + error.message);
-        return res.status(500).json({ error: 'Login failed' });
-    }
+      // If email and password are valid, generate a JWT token and include the username
+      const response = await authService.login(user);
+      logger.info('Login successful');
+      return res.json(response);
+  } catch (error) {
+      logger.error('Login failed: ' + error.message);
+      return res.status(500).json({ error: 'Login failed' });
+  }
 };
 
 /**
