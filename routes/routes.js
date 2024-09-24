@@ -27,7 +27,7 @@ router.get('/quotes', async (req, res) => {
   });
 
 // Authentication routes
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), authController.login);
+router.post('/login', authController.login);
 router.post('/register', regController.register);
 router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password', authController.resetPassword);
