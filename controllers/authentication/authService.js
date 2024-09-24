@@ -35,7 +35,7 @@ exports.savePasswordResetToken = async (userId, token) => {
 
 exports.verifyPasswordResetToken = async (token) => {
     const user = await User.findOne({
-      resetPasswordToken: token,
+      resetPasswordToken: { $eq: token },
       resetPasswordExpires: { $gt: Date.now() },
     });
     if (user) {
