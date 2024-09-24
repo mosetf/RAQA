@@ -8,6 +8,7 @@ const routes = require('./routes/routes');
 const passport = require('./config/passport');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
+const RateLimit = require('express-rate-limit');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -45,8 +46,14 @@ app.get('/api/quote', async (req, res) => {
 // API routes
 app.use('/api', routes);
 
+// Set up rate limiter: maximum of 100 requests per 15 minutes
+const limiter = RateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // max 100 requests per windowMs
+});
+
 // Serve the React app for all other routes
-app.get('*', (req, res) => {
+app.get('*', limiter, (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
