@@ -1,29 +1,37 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainPage from './components/mainPage';
-import ForgotPassword from './components/forgotpassword';
-import ResetPassword from './components/resetpassword';
-import UserPage from './components/UserPage';
-import ProtectedRoute from './components/ProtectedRoute';
-import Dashboard from './components/Dashboard';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Box } from '@mui/material';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import MainContent from './components/MainContent';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import './global.css';
 
 const App = () => {
-  const isAuthenticated = localStorage.getItem('token') ? true : false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={
+          isAuthenticated ? (
+            <Box display="flex" flexDirection="column" height="100vh">
+              <Header />
+              <Box display="flex" flex={1}>
+                <Sidebar />
+                <MainContent />
+              </Box>
+            </Box>
+          ) : (
+            <Navigate to="/login" />
+          )
+        } />
       </Routes>
     </Router>
   );
 };
 
-export default App; 
+export default App;
