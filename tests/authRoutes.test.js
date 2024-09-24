@@ -15,7 +15,8 @@ app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL })
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+    cookie: { secure: true, httpOnly: true }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
