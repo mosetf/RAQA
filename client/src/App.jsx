@@ -12,6 +12,7 @@ import './global.css';
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [username, setUsername] = useState(''); // Add state for username
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -20,12 +21,12 @@ const App = () => {
   return (
     <Router>
       {/* Main layout including Header and Sidebar */}
-      <Header toggleSidebar={toggleSidebar} isAuthenticated={isAuthenticated} />
+      <Header toggleSidebar={toggleSidebar} isAuthenticated={isAuthenticated} username={username} />
       <Box display="flex">
         {isAuthenticated && <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
         <Box flexGrow={1} padding={2}>
           <Routes>
-            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/maincontent" element={<MainContent />} />
             <Route path="/user" element={isAuthenticated ? <UserPage /> : <Navigate to="/login" />} />
