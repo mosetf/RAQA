@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = ({ setIsAuthenticated, setUsername }) => {
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const Login = ({ setIsAuthenticated }) => {
       localStorage.setItem('token', result.token); // Save the token
       console.log('Token stored:', result.token);
       setIsAuthenticated(true); // Set authentication status to true
+      setUsername(result.username); // Set the username
       navigate('/user'); // Redirect to user page
     } catch (error) {
       console.error('Error:', error);
