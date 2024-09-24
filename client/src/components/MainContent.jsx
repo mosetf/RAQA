@@ -1,27 +1,16 @@
 import React from 'react';
-import QuotesWidget from './QuotesWidget';
-import './MainContent.css';
+import { Box, Typography } from '@mui/material';
 
-const MainContent = ({ activeSection }) => {
-  const renderContent = () => {
-    switch (activeSection) {
-      case 'home':
-        return <div>Welcome to your Dashboard!</div>;
-      case 'profile':
-        return <div>Profile Information</div>;
-      case 'quotes':
-        return <QuotesWidget />;
-      case 'settings':
-        return <div>Settings</div>;
-      default:
-        return <div>Welcome to your Dashboard!</div>;
-    }
-  };
-
+const MainContent = () => {
   return (
-    <div className="main-content">
-      {renderContent()}
-    </div>
+    <Box flex={1} p={2}>
+      <Typography variant="h4" gutterBottom>
+        Main Content
+      </Typography>
+      <Typography variant="body1">
+        This is the main content area.
+      </Typography>
+    </Box>
   );
 };
 
