@@ -1,4 +1,5 @@
 const authService = require('./authService');
+const validator = require('validator');
 const logger = require('../../utils/logger');
 const bcrypt = require('bcrypt');
 const User = require('../../models/User');
@@ -41,8 +42,12 @@ exports.login = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
+    if (!validator.isEmail(email)) {
+      logger.error('Invalid email format: ' + email);
+      return res.status(400).send({ error: 'Invalid email format' });
+    }
     try {
-      await authService.forgotPassword(req.body.email);
+      await authService.forgotPassword(email);
       res.status(200).send({ message: 'Password reset link sent' });
     } catch (error) {
       logger.error('Forgot password failed: ' + error.message);
