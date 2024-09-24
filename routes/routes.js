@@ -3,7 +3,6 @@ const router = express.Router();
 const authController = require('../controllers/authentication/authController');
 const regController = require('../controllers/registration/regController');
 const logger = require('../utils/logger');
-const passport = require('../config/passport');
 const Quote = require('../models/Quote'); 
 
 
