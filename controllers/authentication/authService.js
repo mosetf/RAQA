@@ -17,7 +17,7 @@ exports.logout = (req) => {
 };
 
 exports.findUserByEmail = async (email) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: { $eq: email } });
     logger.info(`User found by email: ${email}`); // Log user found
     return user;
 };
