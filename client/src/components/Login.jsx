@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -10,6 +11,7 @@ const Login = () => {
     try {
       const response = await axios.post('/api/login', { email, password });
       console.log('Login successful:', response.data);
+      setIsAuthenticated(true); // Set authentication status to true
       // Handle successful login (e.g., redirect to dashboard)
     } catch (error) {
       console.error('Login failed:', error);
@@ -28,6 +30,9 @@ const Login = () => {
         <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
           Login
         </Button>
+        <Typography variant="body2" align="center" marginTop={2}>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </Typography>
       </Box>
     </Box>
   );
