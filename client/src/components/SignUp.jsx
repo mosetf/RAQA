@@ -45,11 +45,20 @@ const SignUp = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to sign up. Please try again later.');
+        const result = await response.json();
+        if (result.message.includes('duplicate key error')) {
+          if (result.message.includes('username')) {
+            alert('Username already exists. Please choose a different username.');
+          } else if (result.message.includes('email')) {
+            alert('Email already exists. Please use a different email.');
+          }
+        } else {
+          throw new Error('Failed to sign up. Please try again later.');
+        }
+      } else {
+        const result = await response.json();
+        alert(result.message);
       }
-
-      const result = await response.json();
-      alert(result.message);
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred while signing up. Please try again later.');
