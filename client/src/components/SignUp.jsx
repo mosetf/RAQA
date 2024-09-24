@@ -1,21 +1,58 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 const SignUp = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [signUpName, setSignUpName] = useState('');
+  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpPassword, setSignUpPassword] = useState('');
+  const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
 
-  const handleSignUp = async () => {
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const checkPasswordStrength = (password) => {
+    // Add your password strength logic here
+    return password.length >= 6;
+  };
+
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateEmail(signUpEmail)) {
+      alert('Invalid email format');
+      return;
+    }
+
+    if (!checkPasswordStrength(signUpPassword)) {
+      alert('Password does not meet requirements');
+      return;
+    }
+
+    if (signUpPassword !== signUpConfirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
     try {
-      const response = await axios.post('/api/signup', { name, email, password });
-      console.log('Sign-up successful:', response.data);
-      // Handle successful sign-up (e.g., redirect to login)
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: signUpName, email: signUpEmail, password: signUpPassword })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to sign up. Please try again later.');
+      }
+
+      const result = await response.json();
+      alert(result.message);
     } catch (error) {
-      console.error('Sign-up failed:', error);
-      // Handle sign-up error
+      console.error('Error:', error);
+      alert('An error occurred while signing up. Please try again later.');
     }
   };
 
@@ -25,10 +62,11 @@ const SignUp = () => {
         <Typography variant="h4" gutterBottom>
           Sign Up
         </Typography>
-        <TextField label="Name" variant="outlined" fullWidth margin="normal" value={name} onChange={(e) => setName(e.target.value)} />
-        <TextField label="Email" variant="outlined" fullWidth margin="normal" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button variant="contained" color="primary" fullWidth onClick={handleSignUp}>
+        <TextField label="Username" variant="outlined" fullWidth margin="normal" value={signUpName} onChange={(e) => setSignUpName(e.target.value)} />
+        <TextField label="Email" variant="outlined" fullWidth margin="normal" value={signUpEmail} onChange={(e) => setSignUpEmail(e.target.value)} />
+        <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" value={signUpPassword} onChange={(e) => setSignUpPassword(e.target.value)} />
+        <TextField label="Confirm Password" type="password" variant="outlined" fullWidth margin="normal" value={signUpConfirmPassword} onChange={(e) => setSignUpConfirmPassword(e.target.value)} />
+        <Button variant="contained" color="primary" fullWidth onClick={handleSignUpSubmit}>
           Sign Up
         </Button>
         <Typography variant="body2" align="center" marginTop={2}>
