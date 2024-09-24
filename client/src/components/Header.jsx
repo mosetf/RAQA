@@ -1,12 +1,19 @@
 import React from 'react';
-import './Header.css';
+import { Box, Avatar, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <div className="header">
-      <h1>Quote Generator Dashboard</h1>
-      <button className="logout-button">Logout</button>
-    </div>
+    <Box display="flex" alignItems="center" gap={2} p={2} bgcolor="primary.main" color="white">
+      <Avatar src="/avatar.png" sx={{ width: 56, height: 56 }} />
+      <Box>
+        <Typography variant="h6" fontWeight="bold">
+          Duck UI
+        </Typography>
+        <Typography variant="body2">
+          Duckui@demo.com
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
