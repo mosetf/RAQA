@@ -1,7 +1,5 @@
 const nodemailer = require('nodemailer');
-const hbs = require('nodemailer-express-handlebars');
 const path = require('path');
-
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -22,6 +20,9 @@ const handlebarOptions = {
   extName: '.hbs',
 };
 
-transporter.use('compile', hbs(handlebarOptions));
+(async () => {
+  const { default: hbs } = await import('nodemailer-express-handlebars');
+  transporter.use('compile', hbs(handlebarOptions));
+})();
 
 module.exports = transporter;
