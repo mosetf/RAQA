@@ -20,15 +20,15 @@ const App = () => {
   return (
     <Router>
       {/* Main layout including Header and Sidebar */}
-      <Header toggleSidebar={toggleSidebar} />
+      <Header toggleSidebar={toggleSidebar} isAuthenticated={isAuthenticated} />
       <Box display="flex">
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        {isAuthenticated && <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
         <Box flexGrow={1} padding={2}>
           <Routes>
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/maincontent" element={<MainContent />} />
-            <Route path="/user" element={<UserPage />} />
+            <Route path="/user" element={isAuthenticated ? <UserPage /> : <Navigate to="/login" />} />
             <Route
               path="/"
               element={
