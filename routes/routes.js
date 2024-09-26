@@ -8,6 +8,7 @@ const regController = require('../controllers/registration/regController');
 const logger = require('../utils/logger');
 const Quote = require('../models/Quote'); 
 const authMiddleware = require('../middleware/authMiddleware');
+const { getUserDetails } = require('../controllers/userController');
 
 
 
@@ -53,4 +54,5 @@ router.post('/reset-password', authController.resetPassword);
 // Update user details route
 router.post('/update-user', authMiddleware, upload.single('profilePicture'), userController.updateUserDetails);
 
+router.get('/user', authMiddleware, getUserDetails);
 module.exports = router;
