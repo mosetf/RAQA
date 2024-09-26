@@ -24,15 +24,25 @@ const App = () => {
   useEffect(() => {
     // Fetch user data if authenticated
     if (isAuthenticated) {
-      fetch('/api/user')
+      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+      fetch('/api/user', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
         .then(response => response.json())
         .then(data => {
           setUsername(data.username);
           setEmail(data.email);
           setProfilePicture(data.profilePicture);
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
         });
     }
   }, [isAuthenticated]);
+
+  const user = { username, email, profilePicture };
 
   return (
     <Router>
@@ -50,13 +60,13 @@ const App = () => {
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/maincontent" element={<MainContent />} />
-            <Route path="/user" element={isAuthenticated ? <UserPage /> : <Navigate to="/login" />} />
-            <Route path="/dashboard" element={isAuthenticated ? <Dashboard user={{ username, email, profilePicture }} /> : <Navigate to="/login" />} />
+            <Route path="/user" element={isAuthenticated ? <UserPage user={user} /> : <Navigate to="/login" />} />
+            <Route path="/dashboard" element={isAuthenticated ? <Dashboard user={user} /> : <Navigate to="/login" />} />
             <Route
               path="/"
               element={
                 isAuthenticated ? (
-                  <UserPage />
+                  <UserPage user={user} />
                 ) : (
                   <Navigate to="/login" />
                 )
