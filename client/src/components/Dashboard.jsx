@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography, Avatar } from '@mui/material';
+import { Box, Button, TextField, Typography, Avatar } from '@mui/material';
 import ProfilePictureUpload from './ProfilePictureUpload';
 
 const Dashboard = ({ user }) => {
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
   const [profilePicture, setProfilePicture] = useState(user.profilePicture);
 
   const handleProfilePictureUpdate = async (newProfilePicture) => {
@@ -10,17 +12,20 @@ const Dashboard = ({ user }) => {
     await updateUserDetails({ profilePicture: newProfilePicture });
   };
 
+  const handleUsernameUpdate = async () => {
+    await updateUserDetails({ username });
+  };
+
+  const handleEmailUpdate = async () => {
+    await updateUserDetails({ email });
+  };
+
   const updateUserDetails = async (updatedFields) => {
     try {
-      // Retrieve the token from localStorage
-      const token = localStorage.getItem('token');
-      console.log('Token:', token); // Log the token
-
       const response = await fetch('/api/update-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(updatedFields),
       });
@@ -44,6 +49,27 @@ const Dashboard = ({ user }) => {
       </Typography>
       <Avatar src={profilePicture || "/avatar.png"} sx={{ width: 100, height: 100 }} />
       <ProfilePictureUpload onProfilePictureUpdate={handleProfilePictureUpdate} />
+      <Box component="form" display="flex" flexDirection="column" gap={2} mt={2}>
+        <TextField
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <Button onClick={handleUsernameUpdate} variant="contained" color="primary">
+          Update Username
+        </Button>
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Button onClick={handleEmailUpdate} variant="contained" color="primary">
+          Update Email
+        </Button>
+      </Box>
     </Box>
   );
 };
