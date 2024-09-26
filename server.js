@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('./uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
