@@ -5,9 +5,20 @@ const transporter = require('../../utils/mailer');
 const logger = require('../../utils/logger');
 
 exports.login = async (user) => {
-    const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
-    logger.info('Logged in successfully');
-    return { message: 'Logged in successfully', token, username: user.username };
+  // Generate a JWT token
+  const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+  logger.info('Logged in successfully');
+
+  // Return the token and user information
+  return {
+    token,
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    },
+  };
 };
 
 exports.logout = (req) => {
