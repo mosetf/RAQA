@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type: String,
+    default: '', // Default to an empty string if no profile picture is provided
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });
