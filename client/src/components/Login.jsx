@@ -39,7 +39,7 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
       localStorage.setItem('token', result.token); // Save the token
       console.log('Token stored:', result.token);
       setIsAuthenticated(true); // Set authentication status to true
-      setUsername(result.username); // Set the username
+      setUsername(result.user.username); // Set the username
       navigate('/user'); // Redirect to user page
     } catch (error) {
       console.error('Error:', error);
