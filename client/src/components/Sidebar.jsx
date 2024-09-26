@@ -10,8 +10,31 @@ import {
   ExitToApp as LogoutIcon,
   Close as CloseIcon // Import Close icon
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/logout', { method: 'POST' });
+      if (response.ok) {
+        localStorage.removeItem('token');
+        navigate('/login');
+      } else {
+        alert('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+      alert('Logout failed');
+    }
+  };
+
+  const handleDashboardClick = () => {
+    toggleSidebar();
+    navigate('/dashboard');
+  };
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleSidebar}>
       <Box width="250px" role="presentation" display="flex" flexDirection="column" height="100vh">
@@ -26,7 +49,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <Typography variant="body1">Search...</Typography>
         </Box>
         <List>
-          <ListItem button>
+          <ListItem button onClick={handleDashboardClick}>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
@@ -56,7 +79,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </ListItemIcon>
             <ListItemText primary="Inventory" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={handleLogout}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
