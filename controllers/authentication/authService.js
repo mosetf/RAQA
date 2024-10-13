@@ -21,12 +21,6 @@ exports.login = async (user) => {
   };
 };
 
-exports.logout = (req) => {
-    req.logout();
-    logger.info('Logged out successfully');
-    return { message: 'Logged out successfully' };
-};
-
 exports.findUserByEmail = async (email) => {
     const user = await User.findOne({ email: { $eq: email } });
     logger.info(`User found by email: ${email}`); // Log user found
