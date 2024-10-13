@@ -22,14 +22,16 @@ const Dashboard = ({ user }) => {
 
   const updateUserDetails = async (updatedFields) => {
     try {
+      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
       const response = await fetch('/api/update-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(updatedFields),
       });
-
+  
       const result = await response.json();
       if (response.ok) {
         alert('User details updated successfully');
