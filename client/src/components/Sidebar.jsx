@@ -12,7 +12,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = ({ isOpen, toggleSidebar, setIsAuthenticated, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -20,6 +20,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       const response = await fetch('/api/logout', { method: 'POST' });
       if (response.ok) {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setIsAuthenticated(false);
+        setUser({ username: '', email: '', profilePicture: '' });
         navigate('/login');
       } else {
         alert('Logout failed');
