@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ setIsAuthenticated, setUsername }) => {
+const Login = ({ setIsAuthenticated, setUser }) => {
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const navigate = useNavigate();
@@ -39,7 +39,17 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
       localStorage.setItem('token', result.token); // Save the token
       console.log('Token stored:', result.token);
       setIsAuthenticated(true); // Set authentication status to true
-      setUsername(result.user.username); // Set the username
+      setUser({
+        username: result.user.username,
+        email: signInEmail,
+        profilePicture: result.user.profilePicture
+      }); // Set the user data
+      // Store user information in localStorage
+      localStorage.setItem('user', JSON.stringify({
+        username: result.user.username,
+        email: signInEmail,
+        profilePicture: result.user.profilePicture
+      }));
       navigate('/user'); // Redirect to user page
     } catch (error) {
       console.error('Error:', error);
@@ -53,11 +63,28 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>
-        <TextField label="Email" variant="outlined" fullWidth margin="normal" value={signInEmail} onChange={(e) => setSignInEmail(e.target.value)} />
-        <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" value={signInPassword} onChange={(e) => setSignInPassword(e.target.value)} />
-        <Button variant="contained" color="primary" fullWidth onClick={handleSignInSubmit}>
-          Login
-        </Button>
+        <form onSubmit={handleSignInSubmit}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={signInEmail}
+            onChange={(e) => setSignInEmail(e.target.value)}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={signInPassword}
+            onChange={(e) => setSignInPassword(e.target.value)}
+          />
+          <Button variant="contained" color="primary" fullWidth type="submit">
+            Login
+          </Button>
+        </form>
         <Typography variant="body2" align="center" marginTop={2}>
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </Typography>
