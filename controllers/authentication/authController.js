@@ -34,6 +34,17 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.logout = (req, res) => {
+  // If using sessions, you can destroy the session
+  req.session.destroy(err => {
+    if (err) {
+      logger.error('Logout failed: ' + err.message);
+      return res.status(500).send({ error: 'Logout failed' });
+    }
+    res.status(200).send({ message: 'Logout successful' });
+  });
+};
+
 /**
  * TO DO
  * Implement email verification during user registration process
