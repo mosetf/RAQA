@@ -11,6 +11,9 @@ const UserPage = ({ user }) => {
         Select Your Mood
       </Typography>
       <Avatar src={user.profilePicture || "/avatar.png"} sx={{ width: 100, height: 100 }} />
+      <Typography variant="h6" gutterBottom>
+        {user.username}
+      </Typography>
       <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
         {moods.map((mood) => (
           <Button
