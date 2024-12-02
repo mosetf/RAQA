@@ -9,6 +9,7 @@ const passport = require('./config/passport');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const RateLimit = require('express-rate-limit');
+const spotifyRoutes = require('./routes/spotifyRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -49,6 +50,8 @@ app.get('/api/quote', async (req, res) => {
 
 // API routes
 app.use('/api', routes);
+
+app.use('/api/spotify', spotifyRoutes);
 
 // Set up rate limiter: maximum of 100 requests per 15 minutes
 const limiter = RateLimit({
