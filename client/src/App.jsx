@@ -119,7 +119,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/maincontent" element={<MainContent />} />
             <Route path="/user" element={isAuthenticated ? <UserPage user={user} /> : <Navigate to="/login" />} />
-            <Route path="/dashboard" element={isAuthenticated ? <Dashboard user={user} updateUserDetails={updateUserDetails} /> : <Navigate to="/login" />} />
+            <Route path="/dashboard" element={isAuthenticated ? <Dashboard user={user} setUser={setUser} /> : <Navigate to="/login" />} />
             <Route
               path="/"
               element={
