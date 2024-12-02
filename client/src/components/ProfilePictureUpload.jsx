@@ -13,42 +13,62 @@ const ProfilePictureUpload = ({ onProfilePictureUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    if (file) formData.append('profilePicture', file);
-    if (username) formData.append('username', username);
-    if (email) formData.append('email', email);
+    if (file) formData.append('profilePicture', file); // Add profile picture to formData
+    if (username) formData.append('username', username); // Add username if provided
+    if (email) formData.append('email', email); // Add email if provided
 
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Log the token
 
     try {
       const response = await fetch('/api/update-user', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`, // Use Bearer token for authentication
         },
-        body: formData,
+        body: formData, // Send formData containing the file and other details
       });
 
       const result = await response.json();
       if (response.ok) {
         alert('User details updated successfully');
-        onProfilePictureUpdate(result.user.profilePicture); // Call the callback with the new profile picture URL
+
+        // Update profile picture in the parent component
+        if (result.user.profilePicture) {
+          onProfilePictureUpdate(result.user.profilePicture); // Call the callback with the new profile picture URL
+        }
       } else {
-        console.error('Error:', result.error); // Log the error
-        alert(result.error);
+        console.error('Error:', result.error); // Log error in console
+        alert(result.error); // Show error message
       }
     } catch (error) {
-      console.error('Error:', error); // Log the error
+      console.error('Error:', error); // Log error
       alert('An error occurred while updating user details.');
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      <TextField label="Username" value={username} onChange={(e) => setUsername(e.target.value)} fullWidth margin="normal" />
-      <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth margin="normal" />
-      <TextField type="file" onChange={handleFileChange} fullWidth margin="normal" />
+      <TextField 
+        label="Username" 
+        value={username} 
+        onChange={(e) => setUsername(e.target.value)} 
+        fullWidth 
+        margin="normal" 
+      />
+      <TextField 
+        label="Email" 
+        value={email} 
+        onChange={(e) => setEmail(e.target.value)} 
+        fullWidth 
+        margin="normal" 
+      />
+      <TextField 
+        type="file" 
+        onChange={handleFileChange} 
+        fullWidth 
+        margin="normal" 
+      />
       <Button type="submit" variant="contained" color="primary">
         Update
       </Button>
