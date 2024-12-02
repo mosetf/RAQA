@@ -13,8 +13,11 @@ const Header = ({ toggleSidebar, isAuthenticated, username, profilePicture }) =>
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" p={2} bgcolor="primary.main" color="white">
       <Box display="flex" alignItems="center" gap={2}>
-        <Avatar src={profilePicture || "/avatar.png"} sx={{ width: 56, height: 56 }} />
-        <Box>
+      <Avatar 
+      src={profilePicture ? profilePicture : "/avatar.png"} 
+      sx={{ width: 100, height: 100 }} 
+      />
+      <Box>
           <Typography variant="h6" fontWeight="bold">
             Raqa
           </Typography>
